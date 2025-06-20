@@ -1,5 +1,5 @@
 package controller;
-import model.PlayerField;
+import model.Field;
 import util.Keyboard;
 
 public class Battleship {
@@ -22,10 +22,10 @@ public class Battleship {
 				+ "\n\t      1 embarcação inteira atingida — 1 naufrágio"
 				+ "\n\t      10 naufrágios — vitória\n\n");
 
-		PlayerField playerOneAllyField = new PlayerField();		// aqui é o 1º objeto campo para o jogador um posicionar embarcação
-		PlayerField PlayerTwoAllyField = new PlayerField();		// aqui é o 2º objeto campo para o jogador dois posicionar embarcação
-		PlayerField playerOneAdversaryField = new PlayerField();		// aqui é o 3º objeto campo para o jogador um disparar artilharia
-		PlayerField playerTwoAdversaryField = new PlayerField();		// aqui é o 4º objeto campo para o jogador dois disparar artilharia
+		Field playerOneAllyField = new Field();		// aqui é o 1º objeto campo para o jogador um posicionar embarcação
+		Field PlayerTwoAllyField = new Field();		// aqui é o 2º objeto campo para o jogador dois posicionar embarcação
+		Field playerOneAdversaryField = new Field();		// aqui é o 3º objeto campo para o jogador um disparar artilharia
+		Field playerTwoAdversaryField = new Field();		// aqui é o 4º objeto campo para o jogador dois disparar artilharia
 		String playerOneName[] = {null};
 		String playerTwoName[] = {null};
 		posicionarEmbarcacao(playerOneName, playerOneAllyField);
@@ -51,9 +51,9 @@ public class Battleship {
 				for (int i = 0; i < 20; i++) {
 					for (int j = 0; j < 20; j++) {
 						if (j == 0) {
-							System.out.print("\t\t\t    " + PlayerTwoAllyField.defaultField[i][j]);
+							System.out.print("\t\t\t    " + PlayerTwoAllyField.field[i][j]);
 						} else {
-							System.out.print(PlayerTwoAllyField.defaultField[i][j]);	
+							System.out.print(PlayerTwoAllyField.field[i][j]);	
 						}
 					}
 					System.out.println();
@@ -67,9 +67,9 @@ public class Battleship {
 				for (int i = 0; i < 20; i++) {
 					for (int j = 0; j < 20; j++) {
 							if (j == 0) {
-								System.out.print("\t\t\t    " + playerOneAllyField.defaultField[i][j]);
+								System.out.print("\t\t\t    " + playerOneAllyField.field[i][j]);
 							} else {
-								System.out.print(playerOneAllyField.defaultField[i][j]);
+								System.out.print(playerOneAllyField.field[i][j]);
 							}
 					}
 					System.out.println();
@@ -79,7 +79,7 @@ public class Battleship {
 		}
 	}
 
-	public static void posicionarEmbarcacao(String nomeJogador[], PlayerField campoPosicao) {
+	public static void posicionarEmbarcacao(String nomeJogador[], Field campoPosicao) {
 		nomeJogador[0] = Keyboard.stringDataTypeInput("\n\n\t\t\t\t Jogador, insira seu nome:");
 		System.out.println("\n\t\t\t\t Jogador " + nomeJogador[0] + ", seu turno.\n");
 		String esquadra[] = { "Porta-aeronaves", "Couraçado", "Cruzador", "Submarino", "Contratorpedeiro" };
@@ -165,11 +165,11 @@ public class Battleship {
 					}
 					for (int coluna = 0; coluna < 20; coluna++) {
 						if (coluna == 0 && linha < 9) {
-							System.out.print("\t\t         " + (linha + 1) + " " + campoPosicao.defaultField[linha][coluna]);
+							System.out.print("\t\t         " + (linha + 1) + " " + campoPosicao.field[linha][coluna]);
 						} else if (coluna == 0) {
-							System.out.print("\t\t        " + (linha + 1) + " " + campoPosicao.defaultField[linha][coluna]);
+							System.out.print("\t\t        " + (linha + 1) + " " + campoPosicao.field[linha][coluna]);
 						} else {
-							System.out.print(campoPosicao.defaultField[linha][coluna]);
+							System.out.print(campoPosicao.field[linha][coluna]);
 						}
 					}
 					System.out.println();
@@ -244,22 +244,22 @@ public class Battleship {
 						conversaoEixoVertical = 1111;
 						break;
 					}
-					if (campoPosicao.defaultField[entradaEixoHorizontal][conversaoEixoVertical].equals("░░")) {	// aqui verifica se a coordenada está disponível nos limites do campo
+					if (campoPosicao.field[entradaEixoHorizontal][conversaoEixoVertical].equals("░░")) {	// aqui verifica se a coordenada está disponível nos limites do campo
 						for (int comprimentoEmbarcacao = 0; comprimentoEmbarcacao < escolhaEmbarcacao; comprimentoEmbarcacao++) {	// aqui verifica se as direções estão livres
 							if (entradaEixoHorizontal - escolhaEmbarcacao >= 0
-							&& campoPosicao.defaultField[entradaEixoHorizontal - comprimentoEmbarcacao][conversaoEixoVertical].equals("██")) {		// direção norte (y-1)
+							&& campoPosicao.field[entradaEixoHorizontal - comprimentoEmbarcacao][conversaoEixoVertical].equals("██")) {		// direção norte (y-1)
 								direcaoDisponivel[0] = 1111;
 								}							
 							if (entradaEixoHorizontal + escolhaEmbarcacao <= 19
-							&& campoPosicao.defaultField[entradaEixoHorizontal + comprimentoEmbarcacao][conversaoEixoVertical].equals("██")) {		// direção sul (y+1)
+							&& campoPosicao.field[entradaEixoHorizontal + comprimentoEmbarcacao][conversaoEixoVertical].equals("██")) {		// direção sul (y+1)
 								direcaoDisponivel[1] = 1111;
 								}
 							if (conversaoEixoVertical + escolhaEmbarcacao <= 19
-							&& campoPosicao.defaultField[entradaEixoHorizontal][conversaoEixoVertical + comprimentoEmbarcacao].equals("██")) {		// direção leste (x+1)
+							&& campoPosicao.field[entradaEixoHorizontal][conversaoEixoVertical + comprimentoEmbarcacao].equals("██")) {		// direção leste (x+1)
 								direcaoDisponivel[2] = 1111;
 								}
 							if (conversaoEixoVertical - escolhaEmbarcacao >= 0
-							&& campoPosicao.defaultField[entradaEixoHorizontal][conversaoEixoVertical - comprimentoEmbarcacao].equals("██")) {		// direção oeste (x-1)
+							&& campoPosicao.field[entradaEixoHorizontal][conversaoEixoVertical - comprimentoEmbarcacao].equals("██")) {		// direção oeste (x-1)
 								direcaoDisponivel[3] = 1111;
 								}
 							}
@@ -323,29 +323,29 @@ public class Battleship {
 			switch (escolhaDirecao) {		// aqui posiciona a embarcação, considerando a escolha da direção e o comprimento da embarcação
 			case 1:
 				for (int comprimentoEmbarcacao = 0; comprimentoEmbarcacao < escolhaEmbarcacao; comprimentoEmbarcacao++) {
-					campoPosicao.defaultField[escolhaCoordenada[0] + (- comprimentoEmbarcacao)][escolhaCoordenada[1]] = "██";
+					campoPosicao.field[escolhaCoordenada[0] + (- comprimentoEmbarcacao)][escolhaCoordenada[1]] = "██";
 				}
 				break;
 			case 2:
 				for (int comprimentoEmbarcacao = 0; comprimentoEmbarcacao < escolhaEmbarcacao; comprimentoEmbarcacao++) {
-					campoPosicao.defaultField[escolhaCoordenada[0] + comprimentoEmbarcacao][escolhaCoordenada[1]] = "██";
+					campoPosicao.field[escolhaCoordenada[0] + comprimentoEmbarcacao][escolhaCoordenada[1]] = "██";
 				}
 				break;
 			case 3:
 				for (int comprimentoEmbarcacao = 0; comprimentoEmbarcacao < escolhaEmbarcacao; comprimentoEmbarcacao++) {
-					campoPosicao.defaultField[escolhaCoordenada[0]][escolhaCoordenada[1] + comprimentoEmbarcacao] = "██";
+					campoPosicao.field[escolhaCoordenada[0]][escolhaCoordenada[1] + comprimentoEmbarcacao] = "██";
 				}
 				break;
 			case 4:
 				for (int comprimentoEmbarcacao = 0; comprimentoEmbarcacao < escolhaEmbarcacao; comprimentoEmbarcacao++) {
-					campoPosicao.defaultField[escolhaCoordenada[0]][escolhaCoordenada[1] + (- comprimentoEmbarcacao)] = "██";
+					campoPosicao.field[escolhaCoordenada[0]][escolhaCoordenada[1] + (- comprimentoEmbarcacao)] = "██";
 				}
 				break;
 			}
 		}
 	}
 
-	public static void dispararArtilharia(String nomeJogador[], PlayerField campoDisparo, PlayerField campoPosicao, PlayerField campoAdversario, int acertos[], String corVermelha, String corPadrao) {
+	public static void dispararArtilharia(String nomeJogador[], Field campoDisparo, Field campoPosicao, Field campoAdversario, int acertos[], String corVermelha, String corPadrao) {
 		System.out.println("\n\t\t\t\t Jogador " + nomeJogador[0] + ", seu turno.\n");
 
 		boolean coordenadaEstaDisponivel = false;
@@ -358,18 +358,18 @@ public class Battleship {
 				}
 				for (int coluna = 0; coluna < 20; coluna++) {		// esse primeiro laço exibe a Esquadra inimiga
 					if (coluna == 0 && linha < 9) {
-						System.out.print("   " + (linha + 1) + " " + campoDisparo.defaultField[linha][coluna]);
+						System.out.print("   " + (linha + 1) + " " + campoDisparo.field[linha][coluna]);
 					} else if (coluna == 0) {
-						System.out.print("  " + (linha + 1) + " " + campoDisparo.defaultField[linha][coluna]);
+						System.out.print("  " + (linha + 1) + " " + campoDisparo.field[linha][coluna]);
 					} else {
-						System.out.print(campoDisparo.defaultField[linha][coluna]);
+						System.out.print(campoDisparo.field[linha][coluna]);
 					}
 				}
 				for (int coluna = 0; coluna < 20; coluna++) {		// esse segundo laço exibe a Esquadra aliada
 					if (coluna == 0) {
-						System.out.print("\t" + campoPosicao.defaultField[linha][coluna]);
+						System.out.print("\t" + campoPosicao.field[linha][coluna]);
 					} else {
-						System.out.print(campoPosicao.defaultField[linha][coluna]);
+						System.out.print(campoPosicao.field[linha][coluna]);
 					}
 				}
 				System.out.println();
@@ -443,17 +443,17 @@ public class Battleship {
 					conversaoEixoVertical = 1111;
 					break;
 				}
-				if (!campoAdversario.defaultField[entradaEixoHorizontal][conversaoEixoVertical].equals(corVermelha + "▓▓" + corPadrao)
-				&& !campoAdversario.defaultField[entradaEixoHorizontal][conversaoEixoVertical].equals("▒▒")) {		// aqui verifica se a coordenada recebeu um disparo anterior
-					if (campoAdversario.defaultField[entradaEixoHorizontal][conversaoEixoVertical].equals("██")) {
-						campoAdversario.defaultField[entradaEixoHorizontal][conversaoEixoVertical] = corVermelha + "▓▓" + corPadrao;
-						campoDisparo.defaultField[entradaEixoHorizontal][conversaoEixoVertical] = corVermelha + "▓▓" + corPadrao;
+				if (!campoAdversario.field[entradaEixoHorizontal][conversaoEixoVertical].equals(corVermelha + "▓▓" + corPadrao)
+				&& !campoAdversario.field[entradaEixoHorizontal][conversaoEixoVertical].equals("▒▒")) {		// aqui verifica se a coordenada recebeu um disparo anterior
+					if (campoAdversario.field[entradaEixoHorizontal][conversaoEixoVertical].equals("██")) {
+						campoAdversario.field[entradaEixoHorizontal][conversaoEixoVertical] = corVermelha + "▓▓" + corPadrao;
+						campoDisparo.field[entradaEixoHorizontal][conversaoEixoVertical] = corVermelha + "▓▓" + corPadrao;
 						System.out.println("\n\t  EMBARCAÇÃO INIMIGA ATINGIDA!\n");
 						acertos[0]++;
 						coordenadaEstaDisponivel = true;
 					} else {
-						campoAdversario.defaultField[entradaEixoHorizontal][conversaoEixoVertical] = "▒▒";
-						campoDisparo.defaultField[entradaEixoHorizontal][conversaoEixoVertical] = "▒▒";
+						campoAdversario.field[entradaEixoHorizontal][conversaoEixoVertical] = "▒▒";
+						campoDisparo.field[entradaEixoHorizontal][conversaoEixoVertical] = "▒▒";
 						System.out.println("\n\t        DISPARO PERDIDO!\n");
 						coordenadaEstaDisponivel = true;
 					}
