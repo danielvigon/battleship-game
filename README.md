@@ -28,3 +28,7 @@ Ao final o jogo deverá informar:
 | Submarino    |        3 |
 | Navio        |        2 |
 | Barco        |        1 |
+
+<div align=center>
+  <img src="https://waveify.onrender.com/api/terminal?commands=git+clone+https%3A%2F%2Fgithub.com%2Fdanielvigon%2Fbattleship-game.git&theme=modern&speed=50&cursor=true&prompt=%24+&width=800&height=256&fontSize=14&showHeader=true&title=Terminal&githubMode=false&commandType=git" alt="Terminal Demo">
+</div>
